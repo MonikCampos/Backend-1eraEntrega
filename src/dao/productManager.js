@@ -6,7 +6,6 @@ class ProductManager {
     #path;
     static idProduct=0;
     constructor() {
-        //this.#products = [];
         this.#path="./src/data/products.json";
         this.#products = this.#readProductsInFile();
     }
@@ -33,53 +32,70 @@ class ProductManager {
         }
     }
 
-    addProduct(title, price, code, stock) {  
-        //if (!title || !descrption || !price || !thumbnail || !code || !stock)
-        if (!title || !price || !code || !stock)
-            return `Faltan datos requeridos: ${title} - ${price} -  ${code} - ${stock}`;       
+    addProduct(title, description, price, status=true, code, stock, category, brand, thumbnail=[]) {  
+        let resultado ="";
+        if (!title || !description || !price || !code || !stock || !category || !brand)
+            return `Faltan datos requeridos: Title:${title} - Description:${description} - Code:${code} - Price:${price} - Stock:${stock} - Category:${category} - Brand:${brand}`;       
         //validar que el codigo no se repita
         const productExist = this.#products.some((p=> p.code == code));
         if(productExist) 
             return `El código ${code} ya se encuentra registrado, el producto no se agregó`;
         //id que se incremente 
-        //ProductManager.idProduct=ProductManager.idProduct+1;
-        //const id = ProductManager.idProduct;
         let id=1;
         if(this.#products.length>0)
-            id=this.#products[this.#products.length -1].id +1;
-                
-        const newProduct = {
-            id: id,
-            title: title,
-            price: price,
-            code: code,
-            stock: stock,       
+            id=this.#products[this.#products.length -1].id +1;    
+        
+            const newProduct = {
+                id,
+                title,
+                description,
+                price,
+                status,
+                code,
+                stock, 
+                category,
+                brand,      
+                thumbnail
         };
         //guardar la información en el array
         this.#products.push(newProduct);
         //guardar la información en el archivo
         this.#saveProductsInFile();
-        return `*** Producto ${id} se agregó exitosamente`
+        resultado = {
+            Message: `*** Producto ${id} se agregó exitosamente`,
+            Product: newProduct 
+        }
+        return resultado;
     }       
     updateProduct(id, newFields){
+        let resultado ="";
         // modificar un producto con su id
         let index = this.#products.findIndex((p)=> p.id === id);
         if (index !== -1) {
             const {id, ...rest}=newFields;
             this.#products[index]={...this.#products[index], ...rest};           
             this.#saveProductsInFile();
-            return `*** Se actualizó el producto id: ${this.#products[index].id}`;            
+            resultado = {
+                Message: `*** Se actualizó el producto id: ${this.#products[index].id}`,
+                Product: this.#products[index] 
+            }
+            return resultado;            
             }else{    
                 return `No se encontró el producto id: ${id} para modificar`   
             }  
     }
     deleteProduct(id) {  
+        let resultado ="";
         // eliminar un producto con su id
         let index = this.#products.findIndex((p)=> p.id === id);
         if (index !== -1) {
+            resultado = {
+                Message: `*** Se eliminó el producto id: ${id}`,
+                Product: this.#products[index] 
+            }
             this.#products = this.#products.filter((e) => e.id != id );
             this.#saveProductsInFile();  
-            return `*** Se eliminó el producto id: ${id}`
+            return resultado; 
         } else {
             return `No se encontró el producto id: ${id} para eliminar`;                            
         }
@@ -103,5 +119,5 @@ class ProductManager {
             return `No se encuentra producto con id: ${id}`;
     } 
 }
-//module.exports =  ProductManager;
+
 export default ProductManager;

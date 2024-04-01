@@ -36,18 +36,27 @@ router.get("/:pid", async(req, res)=>{
 })
 
 router.post("/", async(req, res)=>{
-    let {title, price, code, stock} = req.body
-    // validacion que no exista
-    if(!title || !price || !code || !stock){ 
+    let {title, description, price, status, code, stock, category, brand, thumbnail} = req.body
+    // validacion que exista
+    if (!title || !description || !price || !code || !stock || !category || !brand) {
         res.setHeader('Content-Type','application/json');
-        return res.status(400).json({error:`Complete title / price / code / stock`})
-    }     
-    // validación que  el codigo sea único
+        res.status(400).json({Error:`Debe ingresar todos los campos requeridos`});
+    }
+    // validación que  el codigo sea único se hace en la clase
     // validacion que el precio sea numerico
+    price=Number(price)
+    if(isNaN(price)) {
+        return res.json({Error:'El precio debe ser número'})
+    }
+    //validacion que el estock sea entero
+    stock=Number(stock)
+    if (!Number.isInteger(stock)) {
+        return res.json({Error:'La cantidad del stock debe ser un numero entero'})
+    }
     // resto validaciones ...
     
     try {
-        let newProduct=await Products.addProduct({title, price, code, stock}) 
+        let newProduct=await Products.addProduct(title, description, price, status, code, stock, category, brand, thumbnail) 
         res.setHeader('Content-Type','application/json');
         return res.status(200).json(newProduct);
     } catch (error) {
@@ -61,20 +70,25 @@ router.post("/", async(req, res)=>{
     }
 })
 
-router.put("/:id", async(req, res)=>{
-
-    let id=req.params.id
+router.put("/:pid", async(req, res)=>{
+    let pid=req.params.pid
     // validar que sea numerico...
-    id=Number(id)  // "100"
-    if(isNaN(id)){
+    pid=Number(pid)  
+    if(isNaN(pid)){
         return res.json({error:`Ingrese un id numérico...!!!`})
     }
 
     // recuperar info desde body
-    // validar 
+    //let {title, description, price, status, code, stock, category, brand, thumbnail} = req.body
+    // validacion que no exista
+    /*if (!title && !price && !code && !stock && !thumbnail && !category && !brand) { 
+        res.setHeader('Content-Type','application/json');
+        res.status(400).json({Error:`Debe ingresar todos los campos requeridos`});
+    } */
+    // resto validaciones ...
 
     try {
-        let productModificado=await Products.update(id, {})
+        let productModificado=await Products.updateProduct(pid,req.body)
         res.setHeader('Content-Type','application/json');
         return res.status(200).json(productModificado);
     
@@ -82,31 +96,21 @@ router.put("/:id", async(req, res)=>{
         console.log(error)
         return res.json({error:"Error desconocido...!!!"})
     }
-
-
-
 })
 
-router.delete("/:id", async(req, res)=>{
-
-    let id=req.params.id
+router.delete("/:pid", async(req, res)=>{
+    let pid=req.params.pid
     // validar que sea numerico...
-    id=Number(id)  // "100"
-    if(isNaN(id)){
+    pid=Number(pid) 
+    if(isNaN(pid)){
         return res.json({error:`Ingrese un id numérico...!!!`})
     }
-
     try {
-        let productEliminado=await Products.delete(id)
+        let productEliminado=await Products.deleteProduct(pid)
         res.setHeader('Content-Type','application/json');
         return res.status(200).json(productEliminado);
-    
-        return res.json(product)
     } catch (error) {
         console.log(error)
         return res.json({error:"Error desconocido...!!!"})
     }
-
-
-
 })
