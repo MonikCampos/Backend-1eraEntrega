@@ -35,7 +35,6 @@ class CartManager {
             console.log("Se ha producido un error al guardar los datos en el archivo del carrito");
         }
     }
-
     createCart() {
         const newCart = {
             "id": this.#newCartId(),
@@ -45,7 +44,6 @@ class CartManager {
         this.#saveCartsInFile();
         return newCart;
     }
-
     addProductInCart(cid,pid) {
         let resp="";
         const p = new ProductManager();
@@ -76,30 +74,26 @@ class CartManager {
         }
         return resp
     }
-/*
-   
-    deleteProduct(id) {  
+    deleteCart(id) {  
         let resultado ="";
-        // eliminar un producto con su id
+        // eliminar un carrito con su id
         let index = this.#carts.findIndex((p)=> p.id === id);
         if (index !== -1) {
             resultado = {
-                Message: `*** Se eliminó el producto id: ${id}`,
+                Message: `*** Se eliminó el carrito id: ${id}`,
                 Product: this.#carts[index] 
             }
             this.#carts = this.#carts.filter((e) => e.id != id );
             this.#saveCartsInFile();  
             return resultado; 
         } else {
-            return `No se encontró el producto id: ${id} para eliminar`;                            
+            return `No se encontró el carrito id: ${id} para eliminar`;                            
         }
-    }*/
-
+    }
     getCarts(){
         //devuelve los carritos
         return this.#carts;
     }
-
     getCartsById(id){
         //devuelve el producto que coincide con el id
         const  product = this.#carts.find((p)=> p.id===id);

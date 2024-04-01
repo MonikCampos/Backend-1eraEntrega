@@ -77,14 +77,6 @@ router.put("/:pid", async(req, res)=>{
     if(isNaN(pid)){
         return res.json({error:`Ingrese un id numérico...!!!`})
     }
-
-    // recuperar info desde body
-    //let {title, description, price, status, code, stock, category, brand, thumbnail} = req.body
-    // validacion que no exista
-    /*if (!title && !price && !code && !stock && !thumbnail && !category && !brand) { 
-        res.setHeader('Content-Type','application/json');
-        res.status(400).json({Error:`Debe ingresar todos los campos requeridos`});
-    } */
     // resto validaciones ...
 
     try {

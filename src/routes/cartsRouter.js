@@ -31,3 +31,20 @@ router.post('/:cid/product/:pid', (req,res)=>{
     const Cart=Carts.addProductInCart(Number(cid), Number(pid));
     return res.json({Cart});
 });
+
+router.delete("/:cid", async(req, res)=>{
+    let cid=req.params.cid
+    // validar que sea numerico...
+    cid=Number(cid) 
+    if(isNaN(cid)){
+        return res.json({error:`Ingrese un id numérico...!!!`})
+    }
+    try {
+        let cartEliminado=await Carts.deleteCart(cid)
+        res.setHeader('Content-Type','application/json');
+        return res.status(200).json(cartEliminado);
+    } catch (error) {
+        console.log(error)
+        return res.json({error:"Error desconocido...!!!"})
+    }
+})
