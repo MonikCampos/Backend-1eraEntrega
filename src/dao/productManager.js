@@ -1,4 +1,3 @@
-//const fs= require('fs');
 import fs  from 'fs';
 
 class ProductManager {
@@ -111,12 +110,15 @@ class ProductManager {
     }
 
     getProductsById(id){
+        let status =false;
+        let resp=`No se encuentra producto con id: ${id}`;
         //devuelve el producto que coincide con el id
         const  product = this.#products.find((p)=> p.id===id);
-        if(product)
-            return product;
-        else
-            return `No se encuentra producto con id: ${id}`;
+        if(product){
+            status=true;
+            resp=product;
+        }
+        return {status,resp};        
     } 
 }
 
