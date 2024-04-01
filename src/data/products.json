@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "title": "Crema de noche Eucerin ANTI-PIGMENT con Thiamidol y Dexpantenol x 50 ml",
+        "price": 8000,
+        "thumbnail": "https:/micarpeta/img1.jpg",
+        "code": "asdfg54",
+        "stock": 30,
+        "category": "crema",
+        "brand": "Eucerin"
+    },
+    {
+        "id": 2,
+        "title": "Mascarilla Eucerin Hyaluron Filler Intensiva x 1u",
+        "price": 2000,
+        "thumbnail": "https:/micarpeta/img2.jpg",
+        "code": "edotf75",
+        "stock": 50,
+        "category": "mascarilla",
+        "brand": "Eucerin"
+    },
+    {
+        "id": 3,
+        "title": "Eucerin Hyaluron Filler + Elasticity Ojos",
+        "price": 8000,
+        "thumbnail": "https:/micarpeta/img3.jpg",
+        "code": "odrfv47",
+        "stock": 35,
+        "category": "crema",
+        "brand": "Eucerin"
+    },
+    {
+        "id": 4,
+        "title": "Loción corporal hidratante pH5 Eucerin para piel seca y sensible x 250 ml",
+        "price": 2000,
+        "thumbnail": "https:/micarpeta/img4.jpg",
+        "code": "ñedurt93",
+        "stock": 25,
+        "category": "loción",
+        "brand": "Eucerin"
+    },
+    {
+        "id": 5,
+        "title": "EUCERIN HYALURON F+ 3D SERUM 30ML",
+        "price": 10000,
+        "thumbnail": "https:/micarpeta/img5.jpg",
+        "code": "sdthyg63",
+        "stock": 30,
+        "category": "sérum",
+        "brand": "Eucerin"
+    },
+    {
+        "id": 6,
+        "title": "Spray corporal reparador Eucerin Aquaphor para piel seca x 150 ml",
+        "price": 4000,
+        "thumbnail": "https:/micarpeta/img6.jpg",
+        "code": "yohrd72",
+        "stock": 35,
+        "category": "spray",
+        "brand": "Eucerin"
+    },
+    {
+        "id": 7,
+        "title": "Isdinceutics K-Ox Eyes Contorno de ojos para bolsas y ojeras",
+        "price": 6000,
+        "thumbnail": "https:/micarpeta/img7.jpg",
+        "code": "eiuuh19",
+        "stock": 45,
+        "category": "crema",
+        "brand": "ISDIN"
+    },
+    {
+        "id": 8,
+        "title": "Isdinceutics A.G.E. Reverse Day Tratamiento remodelante facial con triple acción",
+        "price": 12000,
+        "thumbnail": "https:/micarpeta/img8.jpg",
+        "code": "wbudr18",
+        "stock": 25,
+        "category": "crema",
+        "brand": "ISDIN"
+    },
+    {
+        "id": 9,
+        "title": "Isdinceutics A.G.E. Reverse Night Crema reparadora de noche con Melatonina",
+        "price": 10000,
+        "thumbnail": "https:/micarpeta/img9.jpg",
+        "code": "aeduj20",
+        "stock": 20,
+        "category": "crema",
+        "brand": "ISDIN"
+    },
+    {
+        "id": 10,
+        "title": "Isdinceutics Flavo-C Ultraglican Avanzada asociación de antioxidantes e hidratantes",
+        "price": 15000,
+        "thumbnail": "https:/micarpeta/img10.jpg",
+        "code": "wnrfd75",
+        "stock": 30,
+        "category": "ampollas",
+        "brand": "ISDIN"
+    },
+    {
+        "id": 11,
+        "title": "Isdinceutics Hyaluronic Concentrate Sérum ligero ultrahidratante",
+        "price": 15000,
+        "thumbnail": "https:/micarpeta/img11.jpg",
+        "code": "medht54",
+        "stock": 20,
+        "category": "sérum",
+        "brand": "ISDIN"
+    },
+    {
+        "id": 12,
+        "title": "Isdinceutics Flavo-C Forte Sérum con 15% de vitamina C pura y fresca",
+        "price": 12000,
+        "thumbnail": "https:/micarpeta/img12.jpg",
+        "code": "jugrf744",
+        "stock": 20,
+        "category": "sérum",
+        "brand": "ISDIN"
+    }
+]
