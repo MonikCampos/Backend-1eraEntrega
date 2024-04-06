@@ -2,15 +2,14 @@ import { Router } from 'express';
 import productManager from "../dao/productManager.js";
 export const router=Router();
 
-
 const Products=new productManager("./src/data/products.json");
 
 //Ruta para visualizar todos los productos o con un límite de visualización
 router.get("/", async(req, res)=>{
-    let {limit}=req.query
+    let {limit}=req.query;
     let product = await Products.getProducts(limit);
     if(limit){
-        product=product.slice(0, limit)
+        product=product.slice(0, limit);
     }
     res.json({Products: product});
 })
@@ -21,17 +20,18 @@ router.get("/:pid", async(req, res)=>{
     // validar que sea numerico...
     pid=Number(pid)  // "100"
     if(isNaN(pid)){
-        return res.json({error:`Ingrese un id numérico`})
+        res.setHeader('Content-Type','application/json');
+        res.status(400).json({error:`Ingrese un id numérico`});
     }
     try {
         let product = await Products.getProductsById(Number(pid));
         if(!product){
-            return res.json({message:`No existen products con id ${pid}`});
+            res.status(400).json({message:`No existen products con id ${pid}`});
         }
-        res.json({Products: product});
+        res.status(200).json({Products: product});
     } catch (error) {
         console.log(error);
-        return res.json({error:"Error desconocido!"});
+        return res.status(400).json({error: error.message});
     }
 })
 
@@ -46,12 +46,12 @@ router.post("/", async(req, res)=>{
     // validacion que el precio sea numerico
     price=Number(price)
     if(isNaN(price)) {
-        return res.json({Error:'El precio debe ser número'})
+        return res.status(400).json({Error:'El precio debe ser número'})
     }
     //validacion que el estock sea entero
     stock=Number(stock)
     if (!Number.isInteger(stock)) {
-        return res.json({Error:'La cantidad del stock debe ser un numero entero'})
+        return res.status(400).json({Error:'La cantidad del stock debe ser un numero entero'})
     }
     // resto validaciones ...
     
@@ -73,9 +73,9 @@ router.post("/", async(req, res)=>{
 router.put("/:pid", async(req, res)=>{
     let pid=req.params.pid
     // validar que sea numerico...
-    pid=Number(pid)  
-    if(isNaN(pid)){
-        return res.json({error:`Ingrese un id numérico...!!!`})
+    pid=Number(pid)
+    if (isNaN(pid)){
+        return res.status(400).json({error:`Ingrese un id numérico...!!!`})
     }
     // resto validaciones ...
 
@@ -85,8 +85,8 @@ router.put("/:pid", async(req, res)=>{
         return res.status(200).json(productModificado);
     
     } catch (error) {
-        console.log(error)
-        return res.json({error:"Error desconocido...!!!"})
+        console.log(error);
+        return res.status(400).json({error: error.message});
     }
 })
 
@@ -95,14 +95,14 @@ router.delete("/:pid", async(req, res)=>{
     // validar que sea numerico...
     pid=Number(pid) 
     if(isNaN(pid)){
-        return res.json({error:`Ingrese un id numérico...!!!`})
+        return res.status(400).json({error:`Ingrese un id numérico...!!!`});
     }
     try {
-        let productEliminado=await Products.deleteProduct(pid)
+        let productEliminado=await Products.deleteProduct(pid);
         res.setHeader('Content-Type','application/json');
         return res.status(200).json(productEliminado);
     } catch (error) {
-        console.log(error)
-        return res.json({error:"Error desconocido...!!!"})
+        console.log(error);
+        return res.status(400).json({error: error.message});
     }
 })

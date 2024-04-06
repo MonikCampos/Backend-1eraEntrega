@@ -27,34 +27,34 @@ class ProductManager {
         try {
             fs.writeFileSync(this.#path ,JSON.stringify(this.#products));
         } catch (error) {
-            console.log("Se ha producido un error al guardar los datos en el fichero");
+            console.log("Se ha producido un error al guardar los datos en el archivo");
         }
     }
 
     addProduct(title, description, price, status=true, code, stock, category, brand, thumbnail=[]) {  
         let resultado ="";
         if (!title || !description || !price || !code || !stock || !category || !brand)
-            return `Faltan datos requeridos: Title:${title} - Description:${description} - Code:${code} - Price:${price} - Stock:${stock} - Category:${category} - Brand:${brand}`;       
+            throw new Error(`Faltan datos requeridos: Title:${title} - Description:${description} - Code:${code} - Price:${price} - Stock:${stock} - Category:${category} - Brand:${brand}`);       
         //validar que el codigo no se repita
         const productExist = this.#products.some((p=> p.code == code));
         if(productExist) 
-            return `El código ${code} ya se encuentra registrado, el producto no se agregó`;
+            throw new Error( `El código ${code} ya se encuentra registrado, el producto no se agregó`);
         //id que se incremente 
         let id=1;
         if(this.#products.length>0)
             id=this.#products[this.#products.length -1].id +1;    
         
-            const newProduct = {
-                id,
-                title,
-                description,
-                price,
-                status,
-                code,
-                stock, 
-                category,
-                brand,      
-                thumbnail
+        const newProduct = {
+            id,
+            title,
+            description,
+            price,
+            status,
+            code,
+            stock, 
+            category,
+            brand,      
+            thumbnail
         };
         //guardar la información en el array
         this.#products.push(newProduct);
@@ -80,7 +80,7 @@ class ProductManager {
             }
             return resultado;            
             }else{    
-                return `No se encontró el producto id: ${id} para modificar`   
+                throw new Error(`No se encontró el producto id: ${id} para modificar`);   
             }  
     }
     deleteProduct(id) {  
@@ -96,7 +96,7 @@ class ProductManager {
             this.#saveProductsInFile();  
             return resultado; 
         } else {
-            return `No se encontró el producto id: ${id} para eliminar`;                            
+            throw new Error(`No se encontró el producto id: ${id} para eliminar`);                            
         }
     }
 

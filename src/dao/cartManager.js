@@ -57,22 +57,23 @@ class CartManager {
                     this.#carts[indexCart].products.push({id: pid, quantity:1});
                     this.#saveCartsInFile();
                     resp= `Se agrego correctamente el producto id:${pid} al carrito id: ${cid}`;
+                    return resp;
                 }else{
                     if(productExist!==-1 && producto.status){
                         let cant=0;
                         //Ya estaba en el carrito, solo se incrementa la cantidad
                         ++this.#carts[indexCart].products[productExist].quantity;    
                         this.#saveCartsInFile();
-                        resp=`Producto ${pid}: La cantidad fue actualizada en el carrito ${cid}.`;
+                        throw new Error(`Producto ${pid}: La cantidad fue actualizada en el carrito ${cid}.`);
                     } else {
                         if(!producto.status)
-                            resp=`No se encontró el producto con id=${pid}`;
+                        throw new Error(`No se encontró el producto con id=${pid}`);
                     }
                 }
         } else {
-            resp=`El carrito con id:${cid} no existe`;
+            throw new Error(`El carrito con id:${cid} no existe`);
         }
-        return resp
+        
     }
     deleteCart(id) {  
         let resultado ="";
@@ -87,7 +88,7 @@ class CartManager {
             this.#saveCartsInFile();  
             return resultado; 
         } else {
-            return `No se encontró el carrito id: ${id} para eliminar`;                            
+            throw new Error(`No se encontró el carrito id: ${id} para eliminar`);
         }
     }
     getCarts(){
@@ -100,7 +101,7 @@ class CartManager {
         if(product)
             return product;
         else
-            return `No se encuentra carrito con id: ${id}`;
+            throw new Error(`No se encuentra carrito con id: ${id}`);
     } 
 }
 
