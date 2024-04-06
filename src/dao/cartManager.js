@@ -64,7 +64,8 @@ class CartManager {
                         //Ya estaba en el carrito, solo se incrementa la cantidad
                         ++this.#carts[indexCart].products[productExist].quantity;    
                         this.#saveCartsInFile();
-                        throw new Error(`Producto ${pid}: La cantidad fue actualizada en el carrito ${cid}.`);
+                        resp= `Producto ${pid}: La cantidad fue actualizada en el carrito ${cid}.`;
+                        return resp;
                     } else {
                         if(!producto.status)
                         throw new Error(`No se encontró el producto con id=${pid}`);
